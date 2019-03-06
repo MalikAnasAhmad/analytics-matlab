@@ -1,0 +1,19 @@
+clc
+% clear
+% load('Cleaned Hirschvogel_201708291845_NewPruned.mat')
+
+clear Chunks Flag_Limits Flags_LL Flags_UL dataColumnNames
+
+A = char(who')';
+A  = [A;char(32*ones(1,size(A,2)))];
+D = A(:)';
+B = (find(A(:)'==' '));
+E = [1 find((diff(find(A(:)'==' '))>1))+1];
+C = B(E(1:end-1));
+D(C)=',';
+B(E(1:end-1)) = [];
+D(B)=[];
+
+% F = table(ATFAggregatEin,BetriebsartAUS,BetriebsartAutomatik,BetriebsartAutomatikTestbetrieb,BetriebsartEinrichten,BetriebsartEinzelhub,BetriebsartWerkzeughalterwechsel,BetriebsartWerkzeugwechsel,DrehrichtungHauptantriebv0r1,DrehzahlSOLLHauptantrieb,DruckTischausstosser1,DruckTischausstosser2,DruckTischausstosser3,DruckTischausstosser4,DruckTischausstosser5,DruckTischausstosser6,DruckTischausstosser7,DruckTischausstosser8,DruckfilterkontrolleATFAggregat,DruckfilterkontrolleHFCAggregat,DruckfilterkontrolleHLPDAggregat,DruckfilterkontrolleWWAggregat,DurchflussKhllHKBVorlauf,FilterkontrolleKhlkreislaufHLPDAggregat,Flag1,Flag2,FllstandATFAggregat,FllstandHFCAggregat,FllstandHLPDAggregat,FllstandSprhungRcklaufbehlter,FllstandSprhungSphlwasserbehlter,FllstandSprhungVersorgungsbehlter1,FllstandSprhungVersorgungsbehlter2,FllstandSprhungVorratsbehlter1,FllstandSprhungVorratsbehlter2,HFCAggregatEin,HLPDAggregatEin,HauptantriebISTDrehzahl,HauptantriebISTFrequenz,HauptantriebISTHubzahl,HauptantriebISTLeistung,HauptantriebISTStromaufnahme,Hubzhlerabsolut,PositionStelDrehgeber,PositionStelverstellung,PresskraftGesamtMaximal,PresskraftStnderBedienseitelinksMax,PresskraftStnderBedienseiterechtMax,PresskraftStnderRckseitelinksMax,PresskraftStnderRckseiterechtsMax,PumpeWerzeugwechselarmEin,RcklauffilterkontrolleATFAggregat,RcklauffilterkontrolleHFCAggregat,TemperaturDruckstangenlagerlinks,TemperaturDruckstangenlagerrechts,TemperaturExzenterlagerlinks,TemperaturExzenterlagerrechts,TemperaturStnderlagerlinks,TemperaturStnderlagerrechts,TischauswerferStufe2EinAus,TischauswerferStufe2ISTPosition,TischauswerferStufe2SOLLGeschwindigkeit,TischauswerferStufe2SOLLHaltezeit,TischauswerferStufe2SOLLPosition,TischauswerferStufe3EinAus,TischauswerferStufe3ISTPosition,TischauswerferStufe3SOLLGeschwindigkeit,TischauswerferStufe3SOLLHaltezeit,TischauswerferStufe3SOLLPosition,TischauswerferStufe4EinAus,TischauswerferStufe4ISTPosition,TischauswerferStufe4SOLLGeschwindigkeit,TischauswerferStufe4SOLLHaltezeit,TischauswerferStufe4SOLLPosition,TischauswerferStufe5EinAus,TischauswerferStufe5ISTPosition,TischauswerferStufe5SOLLGeschwindigkeit,TischauswerferStufe5SOLLHaltezeit,TischauswerferStufe5SOLLPosition,ltemperaturATFAggregatHKB,ltemperaturHFCAggregatStelausstoer,ltemperaturHLPDAggregatTischauswerfer,ltemperaturKhllHKBRcklauf,ltemperaturKhllHKBVorlauf,time);
+eval(['F=table(' D ');'])
+writetable(F,'Cleaned Hirschvogel_2017009061525_Flagged.xlsx')
