@@ -1,8 +1,0 @@
-load('F:\Anas\Google Drive\Connectavo\Data_analysis-2016-06-14\Data analysis\Sample dataset\dyn_v_f_00053_n_2120_d_7_t_1_s_2_151022.mat')
-plot(data.ts,'r'),legend('ts')
-hold on
-plot(data.Bx,'g'),legend('Bx')
-plot(data.By,'b'),legend('By')
-plot(data.Bz,'y'),legend('Bz')
-plot(data.Fz),legend('Fz')
-plot(data.M),legend('M')
