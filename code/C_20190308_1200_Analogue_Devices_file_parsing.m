@@ -7,9 +7,10 @@ S_frequency_damaged = S{1,1}(5);
 S_frequency_damaged  = strrep(S_frequency_damaged{1,1} , 'AI A-1/Envelope/AmplFFT (', '');
 S_frequency_damaged  = strrep(S_frequency_damaged , ' Hz) (g)', '');
 S_frequency_damaged  = strrep(S_frequency_damaged , ',', '.');
+%% separating all of the values of frequency_damaged using delimiter
 frequency_damaged = cell2mat(textscan(S_frequency_damaged,'%f','delimiter',';'));
 clear S_frequency_damaged
-%% cleaning the frequency_damaged
+%% separating all of the values of amplitude_damaged using delimiter
 S_amplitude_damaged = char(S{1,1}(8));
 amplitude_damaged = cell2mat(textscan(S_amplitude_damaged,'%f','delimiter',';'));
 clear S_amplitude_damaged
@@ -18,9 +19,10 @@ S_frequency_good = S{1,1}(5);
 S_frequency_good  = strrep(S_frequency_good{1,1} , 'AI A-1/Envelope/AmplFFT (', '');
 S_frequency_good  = strrep(S_frequency_good , ' Hz) (g)', '');
 S_frequency_good  = strrep(S_frequency_good , ',', '.');
+%% separating all of the values of frequency_good using delimiter
 frequency_good = cell2mat(textscan(S_frequency_good,'%f','delimiter',';'));
 clear S_frequency_good
-%% cleaning the amplitude_good
+%% separating all of the values of amplitude_good using delimiter
 S_amplitude_good = char(S{1,1}(8));
 amplitude_good = cell2mat(textscan(S_amplitude_good,'%f','delimiter',';'));
 clear S_amplitude_good S
@@ -31,3 +33,4 @@ clear fid ans
 table_to_be_saved = table(frequency_damaged,amplitude_damaged,frequency_good,amplitude_good);
 %% saving the csv
 writetable(table_to_be_saved,'I:\My Drive\Product\Data analysis\Analogue devices\first test setup outputs\20190307\GoodAndBadBearingFFTExample.csv');
+clear table_to_be_saved frequency_damaged amplitude_damaged frequency_good amplitude_good
