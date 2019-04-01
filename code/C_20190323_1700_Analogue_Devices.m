@@ -39,6 +39,13 @@ fft_mag_y_window = zeros(size(DataWindow_mag_y));
 fft_mag_z_window = zeros(size(DataWindow_mag_z));
 fft_mic_window = zeros(size(DataWindow_mic));
 
+fft_acc_x_window_fftshifted = zeros(size(DataWindow_acc_x,1),ceil(size(DataWindow_acc_x,2)/2));
+fft_acc_y_window_fftshifted = zeros(size(DataWindow_acc_y,1),ceil(size(DataWindow_acc_y,2)/2));
+fft_acc_z_window_fftshifted = zeros(size(DataWindow_acc_z,1),ceil(size(DataWindow_acc_z,2)/2));
+fft_mag_x_window_fftshifted = zeros(size(DataWindow_mag_x,1),ceil(size(DataWindow_mag_x,2)/2));
+fft_mag_y_window_fftshifted = zeros(size(DataWindow_mag_x,1),ceil(size(DataWindow_mag_y,2)/2));
+fft_mag_z_window_fftshifted = zeros(size(DataWindow_mag_x,1),ceil(size(DataWindow_mag_z,2)/2));
+fft_mic_window_fftshifted = zeros(size(DataWindow_mic,1),ceil(size(DataWindow_mic,2)/2));
 for window_index = 1 : size(DataWindow_acc_x,1)
 fft_acc_x_window(window_index,:) = fft(DataWindow_acc_x(window_index,:));
 fft_acc_y_window(window_index,:) = fft(DataWindow_acc_y(window_index,:));
@@ -47,39 +54,76 @@ fft_mag_x_window(window_index,:) = fft(DataWindow_mag_x(window_index,:));
 fft_mag_y_window(window_index,:) = fft(DataWindow_mag_y(window_index,:));
 fft_mag_z_window(window_index,:) = fft(DataWindow_mag_z(window_index,:));
 fft_mic_window(window_index,:) = fft(DataWindow_mic(window_index,:));
+
+temp = fftshift(abs(fft_acc_x_window(window_index,:)));
+fft_acc_x_window_fftshifted(window_index,:) = temp(1:ceil(no_of_sample_for_window_size/2));
+temp = fftshift(abs(fft_acc_y_window(window_index,:)));
+fft_acc_y_window_fftshifted(window_index,:) = temp(1:ceil(no_of_sample_for_window_size/2));
+temp = fftshift(abs(fft_acc_z_window(window_index,:)));
+fft_acc_z_window_fftshifted(window_index,:) = temp(1:ceil(no_of_sample_for_window_size/2));
+temp = fftshift(abs(fft_mag_x_window(window_index,:)));
+fft_mag_x_window_fftshifted(window_index,:) = temp(1:ceil(no_of_sample_for_window_size/2));
+temp = fftshift(abs(fft_mag_y_window(window_index,:)));
+fft_mag_y_window_fftshifted(window_index,:) = temp(1:ceil(no_of_sample_for_window_size/2));
+temp = fftshift(abs(fft_mag_z_window(window_index,:)));
+fft_mag_z_window_fftshifted(window_index,:) = temp(1:ceil(no_of_sample_for_window_size/2));
+temp = fftshift(abs(fft_mic_window(window_index,:)));
+fft_mic_window_fftshifted(window_index,:) = temp(1:ceil(no_of_sample_for_window_size/2));
 end
 
 
 %% overlap windowing the data for without_condesator data
-time_period = 2.774;
-window_size = 11.096*1;
-no_of_sample_for_window_size = ceil(window_size/time_period);
+time_period1 = 1.9976;
+window_size1 = 7.9904*1;
+no_of_sample_for_window_size1 = ceil(window_size1/time_period1);
 
-DataWindow_acc_x = OverlapWindow(accelerometer_x,no_of_sample_for_window_size);
-DataWindow_acc_y = OverlapWindow(accelerometer_y,no_of_sample_for_window_size);
-DataWindow_acc_z = OverlapWindow(accelerometer_z,no_of_sample_for_window_size);
-DataWindow_mag_x = OverlapWindow(magnetometer_x,no_of_sample_for_window_size);
-DataWindow_mag_y = OverlapWindow(magnetometer_y,no_of_sample_for_window_size);
-DataWindow_mag_z = OverlapWindow(magnetometer_z,no_of_sample_for_window_size);
-DataWindow_mic = OverlapWindow(microphone,no_of_sample_for_window_size);
+DataWindow_acc_x1 = OverlapWindow(accelerometer_x1,no_of_sample_for_window_size1);
+DataWindow_acc_y1 = OverlapWindow(accelerometer_y1,no_of_sample_for_window_size1);
+DataWindow_acc_z1 = OverlapWindow(accelerometer_z1,no_of_sample_for_window_size1);
+DataWindow_mag_x1 = OverlapWindow(magnetometer_x1,no_of_sample_for_window_size1);
+DataWindow_mag_y1 = OverlapWindow(magnetometer_y1,no_of_sample_for_window_size1);
+DataWindow_mag_z1 = OverlapWindow(magnetometer_z1,no_of_sample_for_window_size1);
+DataWindow_mic1 = OverlapWindow(microphone1,no_of_sample_for_window_size1);
 
 %% taking fft of the windows of without_condesator data
-fft_acc_x_window = zeros(size(DataWindow_acc_x));
-fft_acc_y_window = zeros(size(DataWindow_acc_y));
-fft_acc_z_window = zeros(size(DataWindow_acc_z));
-fft_mag_x_window = zeros(size(DataWindow_mag_x));
-fft_mag_y_window = zeros(size(DataWindow_mag_y));
-fft_mag_z_window = zeros(size(DataWindow_mag_z));
-fft_mic_window = zeros(size(DataWindow_mic));
+fft_acc_x_window1 = zeros(size(DataWindow_acc_x1));
+fft_acc_y_window1 = zeros(size(DataWindow_acc_y1));
+fft_acc_z_window1 = zeros(size(DataWindow_acc_z1));
+fft_mag_x_window1 = zeros(size(DataWindow_mag_x1));
+fft_mag_y_window1 = zeros(size(DataWindow_mag_y1));
+fft_mag_z_window1 = zeros(size(DataWindow_mag_z1));
+fft_mic_window1 = zeros(size(DataWindow_mic1));
 
-for window_index = 1 : size(DataWindow_acc_x,1)
-fft_acc_x_window(window_index,:) = fft(DataWindow_acc_x(window_index,:));
-fft_acc_y_window(window_index,:) = fft(DataWindow_acc_y(window_index,:));
-fft_acc_z_window(window_index,:) = fft(DataWindow_acc_z(window_index,:));
-fft_mag_x_window(window_index,:) = fft(DataWindow_mag_x(window_index,:));
-fft_mag_y_window(window_index,:) = fft(DataWindow_mag_y(window_index,:));
-fft_mag_z_window(window_index,:) = fft(DataWindow_mag_z(window_index,:));
-fft_mic_window(window_index,:) = fft(DataWindow_mic(window_index,:));
+fft_acc_x_window1_fftshifted = zeros(size(DataWindow_acc_x1,1),ceil(size(DataWindow_acc_x1,2)/2));
+fft_acc_y_window1_fftshifted = zeros(size(DataWindow_acc_y1,1),ceil(size(DataWindow_acc_y1,2)/2));
+fft_acc_z_window1_fftshifted = zeros(size(DataWindow_acc_z1,1),ceil(size(DataWindow_acc_z1,2)/2));
+fft_mag_x_window1_fftshifted = zeros(size(DataWindow_mag_x1,1),ceil(size(DataWindow_mag_x1,2)/2));
+fft_mag_y_window1_fftshifted = zeros(size(DataWindow_mag_x1,1),ceil(size(DataWindow_mag_y1,2)/2));
+fft_mag_z_window1_fftshifted = zeros(size(DataWindow_mag_x1,1),ceil(size(DataWindow_mag_z1,2)/2));
+fft_mic_window1_fftshifted = zeros(size(DataWindow_mic1,1),ceil(size(DataWindow_mic1,2)/2));
+for window_index1 = 1 : size(DataWindow_acc_x1,1)
+fft_acc_x_window1(window_index1,:) = fft(DataWindow_acc_x1(window_index1,:));
+fft_acc_y_window1(window_index1,:) = fft(DataWindow_acc_y1(window_index1,:));
+fft_acc_z_window1(window_index1,:) = fft(DataWindow_acc_z1(window_index1,:));
+fft_mag_x_window1(window_index1,:) = fft(DataWindow_mag_x1(window_index1,:));
+fft_mag_y_window1(window_index1,:) = fft(DataWindow_mag_y1(window_index1,:));
+fft_mag_z_window1(window_index1,:) = fft(DataWindow_mag_z1(window_index1,:));
+fft_mic_window1(window_index1,:) = fft(DataWindow_mic1(window_index1,:));
+
+temp = fftshift(abs(fft_acc_x_window1(window_index,:)));
+fft_acc_x_window1_fftshifted(window_index,:) = temp(1:ceil(no_of_sample_for_window_size/2));
+temp = fftshift(abs(fft_acc_y_window1(window_index,:)));
+fft_acc_y_window1_fftshifted(window_index,:) = temp(1:ceil(no_of_sample_for_window_size/2));
+temp = fftshift(abs(fft_acc_z_window1(window_index,:)));
+fft_acc_z_window1_fftshifted(window_index,:) = temp(1:ceil(no_of_sample_for_window_size/2));
+temp = fftshift(abs(fft_mag_x_window1(window_index,:)));
+fft_mag_x_window1_fftshifted(window_index,:) = temp(1:ceil(no_of_sample_for_window_size/2));
+temp = fftshift(abs(fft_mag_y_window1(window_index,:)));
+fft_mag_y_window1_fftshifted(window_index,:) = temp(1:ceil(no_of_sample_for_window_size/2));
+temp = fftshift(abs(fft_mag_z_window1(window_index,:)));
+fft_mag_z_window1_fftshifted(window_index,:) = temp(1:ceil(no_of_sample_for_window_size/2));
+temp = fftshift(abs(fft_mic_window1(window_index,:)));
+fft_mic_window1_fftshifted(window_index,:) = temp(1:ceil(no_of_sample_for_window_size/2));
 end
 
 %% with condesator
@@ -196,3 +240,202 @@ ylim([-200 200])
 xlabel('recording index')
 ylabel('microphone')
 title('without condesator (in blue) vs with condesator(in red)')
+
+figure(10)
+fft_acc_x_window_1 = fft_acc_x_window';
+fft_acc_x_window_1 = fft_acc_x_window_1(:);
+fft_acc_x_len = length(accelerometer_x);
+plot(1/no_of_sample_for_window_size:1/no_of_sample_for_window_size:fft_acc_x_len+1-no_of_sample_for_window_size,abs(fft_acc_x_window_1),'b')
+% ylim([0 2000])
+hold on
+fft_acc_x_window1_1 = fft_acc_x_window1';
+fft_acc_x_window1_1 = fft_acc_x_window1_1(:);
+fft_acc_x_len1 = length(accelerometer_x1);
+shift_on_x_axis = fft_acc_x_len+1-no_of_sample_for_window_size;
+plot(shift_on_x_axis + (1/no_of_sample_for_window_size1):1/no_of_sample_for_window_size1:shift_on_x_axis  + fft_acc_x_len1+1-no_of_sample_for_window_size1,abs(fft_acc_x_window1_1),'r')
+
+hold off
+ylabel('frequency amplitude')
+xlabel('recording index')
+title('fft of accelerometer_x with condensator (in blue) vs without condensator (in red)')
+legend({'fft of accelerometer_x with condensator','fft of accelerometer_x without condensator'},'Location','northeast')
+
+figure(11)
+fft_acc_y_window_1 = fft_acc_y_window';
+fft_acc_y_window_1 = fft_acc_y_window_1(:);
+fft_acc_y_len = length(accelerometer_y);
+plot(1/no_of_sample_for_window_size:1/no_of_sample_for_window_size:fft_acc_y_len+1-no_of_sample_for_window_size,abs(fft_acc_y_window_1),'b')
+% ylim([0 2000])
+hold on
+fft_acc_y_window1_1 = fft_acc_y_window1';
+fft_acc_y_window1_1 = fft_acc_y_window1_1(:);
+fft_acc_y_len1 = length(accelerometer_y1);
+shift_on_y_ayis = fft_acc_y_len+1-no_of_sample_for_window_size;
+plot(shift_on_y_ayis + (1/no_of_sample_for_window_size1):1/no_of_sample_for_window_size1:shift_on_y_ayis  + fft_acc_y_len1+1-no_of_sample_for_window_size1,abs(fft_acc_y_window1_1),'r')
+
+hold off
+ylabel('frequency amplitude')
+ylabel('recording indey')
+title('fft of accelerometer_y with condensator (in blue) vs without condensator (in red)')
+legend({'fft of accelerometer_y with condensator','fft of accelerometer_y without condensator'},'Location','northeast')
+
+figure(12)
+fft_acc_z_window_1 = fft_acc_z_window';
+fft_acc_z_window_1 = fft_acc_z_window_1(:);
+fft_acc_z_len = length(accelerometer_z);
+plot(1/no_of_sample_for_window_size:1/no_of_sample_for_window_size:fft_acc_z_len+1-no_of_sample_for_window_size,abs(fft_acc_z_window_1),'b')
+% zlim([0 2000])
+hold on
+fft_acc_z_window1_1 = fft_acc_z_window1';
+fft_acc_z_window1_1 = fft_acc_z_window1_1(:);
+fft_acc_z_len1 = length(accelerometer_z1);
+shift_on_z_azis = fft_acc_z_len+1-no_of_sample_for_window_size;
+plot(shift_on_z_azis + (1/no_of_sample_for_window_size1):1/no_of_sample_for_window_size1:shift_on_z_azis  + fft_acc_z_len1+1-no_of_sample_for_window_size1,abs(fft_acc_z_window1_1),'r')
+
+hold off
+zlabel('frequencz amplitude')
+zlabel('recording indez')
+title('fft of accelerometer_z with condensator (in blue) vs without condensator (in red)')
+legend({'fft of accelerometer_z with condensator','fft of accelerometer_z without condensator'},'Location','northeast')
+
+figure(13)
+fft_mag_x_window_1 = fft_mag_x_window';
+fft_mag_x_window_1 = fft_mag_x_window_1(:);
+fft_mag_x_len = length(magnetometer_x);
+plot(1/no_of_sample_for_window_size:1/no_of_sample_for_window_size:fft_mag_x_len+1-no_of_sample_for_window_size,abs(fft_mag_x_window_1),'b')
+% ylim([0 2000])
+hold on
+fft_mag_x_window1_1 = fft_mag_x_window1';
+fft_mag_x_window1_1 = fft_mag_x_window1_1(:);
+fft_mag_x_len1 = length(magnetometer_x1);
+shift_on_x_axis = fft_mag_x_len+1-no_of_sample_for_window_size;
+plot(shift_on_x_axis + (1/no_of_sample_for_window_size1):1/no_of_sample_for_window_size1:shift_on_x_axis  + fft_mag_x_len1+1-no_of_sample_for_window_size1,abs(fft_mag_x_window1_1),'r')
+
+hold off
+ylabel('frequency amplitude')
+xlabel('recording index')
+title('fft of magnetometer_x with condensator (in blue) vs without condensator (in red)')
+legend({'fft of magnetometer_x with condensator','fft of magnetometer_x without condensator'},'Location','northeast')
+
+figure(14)
+fft_mag_y_window_1 = fft_mag_y_window';
+fft_mag_y_window_1 = fft_mag_y_window_1(:);
+fft_mag_y_len = length(magnetometer_y);
+plot(1/no_of_sample_for_window_size:1/no_of_sample_for_window_size:fft_mag_y_len+1-no_of_sample_for_window_size,abs(fft_mag_y_window_1),'b')
+% ylim([0 2000])
+hold on
+fft_mag_y_window1_1 = fft_mag_y_window1';
+fft_mag_y_window1_1 = fft_mag_y_window1_1(:);
+fft_mag_y_len1 = length(magnetometer_y1);
+shift_on_y_ayis = fft_mag_y_len+1-no_of_sample_for_window_size;
+plot(shift_on_y_ayis + (1/no_of_sample_for_window_size1):1/no_of_sample_for_window_size1:shift_on_y_ayis  + fft_mag_y_len1+1-no_of_sample_for_window_size1,abs(fft_mag_y_window1_1),'r')
+
+hold off
+ylabel('frequency amplitude')
+ylabel('recording indey')
+title('fft of magnetometer_y with condensator (in blue) vs without condensator (in red)')
+legend({'fft of magnetometer_y with condensator','fft of magnetometer_y without condensator'},'Location','northeast')
+
+figure(15)
+fft_mag_z_window_1 = fft_mag_z_window';
+fft_mag_z_window_1 = fft_mag_z_window_1(:);
+fft_mag_z_len = length(magnetometer_z);
+plot(1/no_of_sample_for_window_size:1/no_of_sample_for_window_size:fft_mag_z_len+1-no_of_sample_for_window_size,abs(fft_mag_z_window_1),'b')
+% zlim([0 2000])
+hold on
+fft_mag_z_window1_1 = fft_mag_z_window1';
+fft_mag_z_window1_1 = fft_mag_z_window1_1(:);
+fft_mag_z_len1 = length(magnetometer_z1);
+shift_on_z_azis = fft_mag_z_len+1-no_of_sample_for_window_size;
+plot(shift_on_z_azis + (1/no_of_sample_for_window_size1):1/no_of_sample_for_window_size1:shift_on_z_azis  + fft_mag_z_len1+1-no_of_sample_for_window_size1,abs(fft_mag_z_window1_1),'r')
+
+hold off
+zlabel('frequencz amplitude')
+zlabel('recording indez')
+title('fft of magnetometer_z with condensator (in blue) vs without condensator (in red)')
+legend({'fft of magnetometer_z with condensator','fft of magnetometer_z without condensator'},'Location','northeast')
+
+figure(16)
+fft_mic_window_1 = fft_mic_window';
+fft_mic_window_1 = fft_mic_window_1(:);
+fft_mic_len = length(microphone);
+plot(1/no_of_sample_for_window_size:1/no_of_sample_for_window_size:fft_mic_len+1-no_of_sample_for_window_size,abs(fft_mic_window_1),'b')
+% ylim([0 2000])
+hold on
+fft_mic_window1_1 = fft_mic_window1';
+fft_mic_window1_1 = fft_mic_window1_1(:);
+fft_mic_len1 = length(microphone1);
+shift_on_x_axis = fft_mic_len+1-no_of_sample_for_window_size;
+plot(shift_on_x_axis + (1/no_of_sample_for_window_size1):1/no_of_sample_for_window_size1:shift_on_x_axis  + fft_mic_len1+1-no_of_sample_for_window_size1,abs(fft_mic_window1_1),'r')
+
+hold off
+ylabel('frequency amplitude')
+xlabel('recording index')
+title('fft of mic with condensator (in blue) vs without condensator (in red)')
+legend({'fft of mic with condensator','fft of mic without condensator'},'Location','northeast')
+
+
+%% with condesator
+total_length = length(status);
+ML_data_fft = [fft_acc_x_window ...
+    fft_acc_y_window ...
+    fft_acc_z_window ...
+    fft_mag_x_window ...
+    fft_mag_y_window ...
+    fft_mag_z_window ...
+    fft_mic_window ...
+    status(window_size:total_length)];
+
+%% without  condensator
+
+total_length1 = length(status1);
+ML_data_fft_1 = [fft_acc_x_window1 ...
+    fft_acc_y_window1 ...
+    fft_acc_z_window1 ...
+    fft_mag_x_window1 ...
+    fft_mag_y_window1 ...
+    fft_mag_z_window1 ...
+    fft_mic_window1 ...
+    status1(window_size1:total_length1)];
+
+ML_data_fft_mean_deducted_condesator = abs([[ML_data_fft(:,1:28) ones(size(ML_data_fft,1),1)];[ML_data_fft_1(:,1:28) zeros(size(ML_data_fft_1,1),1)]]);
+
+
+%% with condesator magenometer only
+total_length = length(status);
+ML_data_fft_mag = [
+    fft_mag_x_window ...
+    fft_mag_y_window ...
+    fft_mag_z_window ...
+    status(window_size:total_length)];
+
+%% without  condensator magenometer only
+
+total_length1 = length(status1);
+ML_data_fft_1_mag = [
+    fft_mag_x_window1 ...
+    fft_mag_y_window1 ...
+    fft_mag_z_window1 ...
+    status1(window_size1:total_length1)];
+
+ML_data_fft_mean_deducted_condesator_mag = abs([[ML_data_fft_mag(:,1:3) ones(size(ML_data_fft_mag,1),1)];[ML_data_fft_1_mag(:,1:3) zeros(size(ML_data_fft_1_mag,1),1)]]);
+
+
+%% with condesator magenometer only with fftshifted
+total_length = length(status);
+ML_data_fft_mag_fftshifted = [
+    fft_mag_x_window_fftshifted ...
+    fft_mag_y_window_fftshifted ...
+    fft_mag_z_window_fftshifted ...
+    status(window_size:total_length)];
+
+%% without  condensator magenometer only with fftshifted
+
+total_length1 = length(status1);
+ML_data_fft_1_mag_fftshifted = [
+    fft_mag_x_window1_fftshifted ...
+    fft_mag_y_window1_fftshifted ...
+    fft_mag_z_window1_fftshifted ...
+    status1(window_size1:total_length1)];
+
+ML_data_fft_mean_deducted_condesator_mag_fftshifted = abs([[ML_data_fft_mag(:,1:3) ones(size(ML_data_fft_mag,1),1)];[ML_data_fft_1_mag(:,1:3) zeros(size(ML_data_fft_1_mag,1),1)]]);
