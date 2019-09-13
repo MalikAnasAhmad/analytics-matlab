@@ -6,4 +6,5 @@ hFigs = findall(groot,'type','figure');
 % saveas(hFigs(1),'I:\My Drive\Product\Data analysis\Analogue devices\second data set\20190320\SVM_Fine_Gaussian_SVM_acc_mag_microphone','jpg')
 % saveas(hFigs(1),'I:\My Drive\Product\Data analysis\Analogue devices\second data set\20190320\ROC_Ensembel_Subspace_KNN_with_rpm','jpg')
 % saveas(hFigs(1),'I:\My Drive\Product\Data analysis\Analogue devices\second data set\20190321\ROC_Ensembel_RUBoosted_Trees_raw_condesator','jpg')
-saveas(hFigs(1),'I:\My Drive\Product\Data analysis\Analogue devices\second data set\20190321\with condensator vs without condensator fft\CM_Tree_Copmlex_Tree','jpg')
+% saveas(hFigs(1),'I:\My Drive\Product\Data analysis\Analogue devices\second data set\20190321\with condensator vs without condensator fft\CM_Tree_Copmlex_Tree','jpg')
+saveas(hFigs(1),'I:\My Drive\Product\Data analysis\Analogue devices\shiratech\20190328\with condensator vs without condensator fft vs power off\CM_SVM_Linear','jpg')
